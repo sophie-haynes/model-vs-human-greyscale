@@ -7,9 +7,13 @@ from plotting_definition import plotting_definition_template
 
 
 def run_evaluation():
-    models = ["resnet50", "bagnet33", "simclr_resnet50x1"]
+    # models = ["resnet50", "bagnet33", "simclr_resnet50x1"]
+    models = ["resnet50_sophie_base89", "resnet50_sophie_grey89"]
+    # TODO: Add single channel image support
+    # models = ["resnet50_sophie_single89"]
     datasets = c.DEFAULT_DATASETS # or e.g. ["cue-conflict", "uniform-noise"]
-    params = {"batch_size": 64, "print_predictions": True, "num_workers": 20}
+    params = {"batch_size": 64, "print_predictions": True, "num_workers": 4}
+    # params = {"batch_size": 64, "print_predictions": True, "num_workers": 4, "single_channel": True}
     Evaluate()(models, datasets, **params)
 
 
