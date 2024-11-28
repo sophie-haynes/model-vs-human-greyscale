@@ -614,3 +614,97 @@ def swag_vit_l16_in1k(model_name, *args):
 def swag_vit_h14_in1k(model_name, *args):
     model = torch.hub.load("facebookresearch/swag", model="vit_h14_in1k")
     return SwagPytorchModel(model, model_name, input_size=518, *args)
+
+@register_model("pytorch")
+def resnet50_sophie_base89(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    #TODO: Update the paths from local to hosted
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/base/256/model_89.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
+
+def resnet50_sophie_base65(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    #TODO: Update the paths from local to hosted
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/base/256/model_65.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
+
+@register_model("pytorch")
+def resnet50_sophie_grey89(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/grey/256/model_89.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
+
+@register_model("pytorch")
+def resnet50_sophie_grey65(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/grey/256/model_65.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
+
+# helper function for single channel models
+def convert_to_single_channel(model):
+    """
+    Modifies the first convolutional layer of a given model to accept single-channel input.
+
+    Args:
+        model (torch.nn.Module): The model to be modified.
+
+    Returns:
+        torch.nn.Module: The modified model with a single-channel input.
+    """
+    # Identify the first convolutional layer
+    conv1 = None
+    for name, layer in model.named_modules():
+        if isinstance(layer, torch.nn.Conv2d):
+            conv1 = layer
+            conv1_name = name
+            break
+
+    if conv1 is None:
+        raise ValueError("The model does not have a Conv2D layer.")
+
+    # Create a new convolutional layer with the same parameters except for the input channels
+    new_conv1 = torch.nn.Conv2d(
+        in_channels=1,  # Change input channels to 1
+        out_channels=conv1.out_channels,
+        kernel_size=conv1.kernel_size,
+        stride=conv1.stride,
+        padding=conv1.padding,
+        bias=conv1.bias is not None
+    )
+
+    # Replace the old conv1 layer with the new one
+    def recursive_setattr(model, attr, value):
+        attr_list = attr.split('.')
+        for attr_name in attr_list[:-1]:
+            model = getattr(model, attr_name)
+        setattr(model, attr_list[-1], value)
+
+    recursive_setattr(model, conv1_name, new_conv1)
+
+    return model
+
+@register_model("pytorch")
+def resnet50_sophie_single89(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    model = convert_to_single_channel(model)
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/single/FullGPU/base/256/model_89.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
+register_model("pytorch")
+
+def resnet50_sophie_single65(model_name, *args):
+    import torchvision.models as zoomodels
+    model = zoomodels.__dict__["resnet50"](pretrained=False)
+    model = convert_to_single_channel(model)
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/single/FullGPU/base/256/model_65.pth")
+    model.load_state_dict(checkpoint["model"])
+    return PytorchModel(model, model_name, *args)
