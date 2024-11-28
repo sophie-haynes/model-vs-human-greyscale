@@ -1,3 +1,5 @@
+raw-data/*
+
 datasets/*
 
 modelvshuman/.idea/
