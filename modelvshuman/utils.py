@@ -39,7 +39,7 @@ def try_download_dataset_from_github(dataset_name):
 
 
 def load_dataset(name, *args, **kwargs):
-    default_kwargs = {"batch_size": 16, "num_workers": 4}
+    default_kwargs = {"batch_size": 16, "num_workers": 4, "single_channel": False}
     kwargs = {**default_kwargs, **kwargs}
     logger.info(f"Loading dataset {name}")
     supported_datasets = dataset_module.list_datasets()

@@ -8,12 +8,16 @@ from plotting_definition import plotting_definition_template
 
 def run_evaluation():
     # models = ["resnet50", "bagnet33", "simclr_resnet50x1"]
-    models = ["resnet50_sophie_base89", "resnet50_sophie_grey89"]
-    # TODO: Add single channel image support
-    # models = ["resnet50_sophie_single89"]
-    datasets = c.DEFAULT_DATASETS # or e.g. ["cue-conflict", "uniform-noise"]
-    params = {"batch_size": 64, "print_predictions": True, "num_workers": 4}
+    # models = ["resnet50_sophie_base89", "resnet50_sophie_grey89"]
+    models = ["resnet50_sophie_base61", "resnet50_sophie_grey61"]
+    params = {"batch_size": 64, "print_predictions": True, "num_workers": 4,"single_channel": False }
+    
+    # REMEMBER!!! SINGLE CHANNEL MUST BE SET TRUE!!!!!!
+    # models = ["resnet50_sophie_single61", "resnet50_sophie_single65", "resnet50_sophie_single61"]
     # params = {"batch_size": 64, "print_predictions": True, "num_workers": 4, "single_channel": True}
+    
+    datasets = c.DEFAULT_DATASETS # or e.g. ["cue-conflict", "uniform-noise"]
+    
     Evaluate()(models, datasets, **params)
 
 
@@ -33,4 +37,4 @@ if __name__ == "__main__":
     # 1. evaluate models on out-of-distribution datasets
     run_evaluation()
     # 2. plot the evaluation results
-    run_plotting()
+    # run_plotting()

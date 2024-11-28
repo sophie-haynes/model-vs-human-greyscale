@@ -53,8 +53,7 @@ class Dataset(object):
         self._loader = None  # this will be lazy-loaded the first time self.loader (the dataloader instance) is called
         self._loader_callback = lambda: loader()(self.path, resize=resize,
                                                  batch_size=self.kwargs["batch_size"],
-                                                 num_workers=self.kwargs["num_workers"],
-                                                 info_mapping=self.info_mapping)
+                                                 num_workers=self.kwargs["num_workers"], single_channel=self.kwargs["single_channel"], info_mapping=self.info_mapping)
 
     @property
     def loader(self):

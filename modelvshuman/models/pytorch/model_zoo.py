@@ -807,23 +807,24 @@ def resnet50_sophie_single89(model_name, *args):
     import torchvision.models as zoomodels
     model = zoomodels.__dict__["resnet50"](pretrained=False)
     model = convert_to_single_channel(model)
-    checkpoint = torch.load("/home/local/data/sophie/imagenet/single/FullGPU/base/256/model_89.pth")
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/single/256/model_89.pth")
     model.load_state_dict(checkpoint["model"])
     return PytorchModel(model, model_name, *args)
-register_model("pytorch")
 
+@register_model("pytorch")
 def resnet50_sophie_single65(model_name, *args):
     import torchvision.models as zoomodels
     model = zoomodels.__dict__["resnet50"](pretrained=False)
     model = convert_to_single_channel(model)
-    checkpoint = torch.load("/home/local/data/sophie/imagenet/single/FullGPU/base/256/model_65.pth")
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/single/256/model_65.pth")
     model.load_state_dict(checkpoint["model"])
     return PytorchModel(model, model_name, *args)
 
+@register_model("pytorch")
 def resnet50_sophie_single61(model_name, *args):
     import torchvision.models as zoomodels
     model = zoomodels.__dict__["resnet50"](pretrained=False)
     model = convert_to_single_channel(model)
-    checkpoint = torch.load("/home/local/data/sophie/imagenet/single/FullGPU/base/256/model_61.pth")
+    checkpoint = torch.load("/home/local/data/sophie/imagenet/output/FullGPU/single/256/model_61.pth")
     model.load_state_dict(checkpoint["model"])
     return PytorchModel(model, model_name, *args)

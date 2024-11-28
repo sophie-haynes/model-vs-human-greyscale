@@ -41,32 +41,41 @@ class ImageFolderWithPaths(datasets.ImageFolder):
 class PytorchLoader(object):
     """Pytorch Data loader"""
 
-    def __call__(self, path, resize, batch_size, num_workers,
-                 info_mapping=None):
+    def __call__(self, path, resize, batch_size, num_workers, single_channel, info_mapping=None):
         """
         Data loader for pytorch models
         :param path:
         :param resize:
         :param batch_size:
         :param num_workers:
+        :param single_channel: Boolean whether to conv. to 1 channel
         :return:
         """
-        normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                         std=[0.229, 0.224, 0.225])
+        transform_list = []
+        # add single channel model support
+        if single_channel:
+            normalize = transforms.Normalize(mean=[0.449],
+                                             std=[0.236])
+            transform_list += [
+                transforms.Grayscale(num_output_channels=1)]
+        else:
+            normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                             std=[0.229, 0.224, 0.225])
 
         if resize:
-            transformations = transforms.Compose([
+            transform_list +=[
                 transforms.Resize(256),
                 transforms.CenterCrop(224),
                 transforms.ToTensor(),
                 normalize,
-            ])
+            ]
         else:
-            transformations = transforms.Compose([
+            transform_list +=[
                 transforms.ToTensor(),
                 normalize,
-            ])
-
+            ]
+        
+        transformations = transforms.Compose(transform_list)
         loader = torch.utils.data.DataLoader(
             ImageFolderWithPaths(path, transformations,
                                  info_mapping=info_mapping),
