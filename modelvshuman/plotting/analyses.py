@@ -210,12 +210,16 @@ class ErrorConsistency(Analysis):
                 if dm1 != h:
                     df1 = df.loc[(df["condition"]==condition) & (df["subj"]==dm1)]
                     df2 = df.loc[(df["condition"]==condition) & (df["subj"]==h)]
+                    for col in df1.columns:
+                        print(f"len(df1.{col}.unique()): {len(df1[col].unique())}")
+                        print(f"len(df2.{col}.unique()): {len(df2[col].unique())}")
                     r = self.analysis(df1, df2)
                     values.append(r["error-consistency"])
             return np.mean(values)
 
 
         for c in experiment.data_conditions:
+            
             for m in models:
                 yvalue = get_result(result_df, df, m, condition=c)
                 attr = dm.decision_maker_to_attributes(m, decision_makers)
@@ -253,11 +257,15 @@ class XYAnalysis(Analysis):
                 subdat = df.loc[(df["condition"]==c) & (df["subj"].isin(d.decision_makers))]
                 r = self.analysis(subdat)
                 assert len(r) == 1, "Analysis unexpectedly returned more than one scalar."
-                result_df = result_df.append({'subj': d.plotting_name,
-                                              'condition': c,
-                                              'yvalue': list(r.values())[0],
-                                              'decision-maker-ID': d.ID},
-                                              ignore_index=True)
+                # result_df = result_df.append({'subj': d.plotting_name,
+                #                               'condition': c,
+                #                               'yvalue': list(r.values())[0],
+                #                               'decision-maker-ID': d.ID},
+                #                               ignore_index=True)
+                
+                # ['subj' 'condition' 'yvalue' 'decision-maker-ID' 'colour']
+                result_df.loc[len(result_df)] =[d.plotting_name,c,list(r.values())[0],
+                                              d.ID,pd.NA]
 
         return result_df
 

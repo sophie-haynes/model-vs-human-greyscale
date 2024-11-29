@@ -358,11 +358,13 @@ def get_mean_over_datasets(colname,
             else:
                 raise ValueError("unknown")
             r1 = metric_fun.analysis(df=df_selection)
-            result_df = result_df.append([{"plotting_name": dmaker.plotting_name,
-                                           "dataset": d.name,
-                                           colname: r1[metric_name],
-                                           "color": dmaker.color}],
-                                         ignore_index=True)
+            result_df.loc[len(result_df)] = [pd.NA, dmaker.plotting_name,d.name, r1[metric_name], dmaker.color]
+            # result_df = result_df.append([{"plotting_name": dmaker.plotting_name,
+            #                                "dataset": d.name,
+            #                                colname: r1[metric_name],
+            #                                "color": dmaker.color}],
+            #                              ignore_index=True)
+    
 
     # average over datasets
     result_df = result_df.groupby(['plotting_name', 'color'], as_index=False)[colname].mean()
@@ -611,7 +613,10 @@ def plot_shape_bias_boxplot(datasets,
             class_avgs = df_selection.groupby(["category"]).apply(lambda x: analysis.analysis(df=x)["shape-bias"])
             decision_maker_to_shape_bias_dict[subject_name] = class_avgs.tolist()
         colors.append(dmaker.color)
-        if subject_name in consts.TORCHVISION_MODELS:
+        # print(f"else dc: {dmaker.decision_makers[0]} \ndmaker_human: {dmaker_human}")
+        # else dc: subject-01 dmaker_human: subject-10
+        # if subject_name in consts.TORCHVISION_MODELS:
+        if dmaker.decision_makers[0] in consts.TORCHVISION_MODELS:
             label_colors.append(rgb(150, 150, 150))
         else:
             label_colors.append(dmaker.color)
@@ -872,8 +877,14 @@ def get_raw_benchmark_df(datasets, metric_names, decision_maker_fun,
                                                  dataset=dataset_name,
                                                  colname=colname,
                                                  condition=condition)
+                            #row: {'model': 'resnet50_sophie_base89', 'human': 'subject-01', 'dataset': 'edge', 'metric': 'accuracy difference', 'condition': None, 'value': 0.4389062500000001}
                             rows_list.append(row)
-        result_df = result_df.append(rows_list, ignore_index=True)
+        # ['model' 'human' 'dataset' 'metric' 'condition' 'value']
+        
+        # print(result_df.columns.values)
+        # result_df.loc[len(result_df)] =[rows_list]
+        result_df = pd.concat([result_df, pd.DataFrame(rows_list)]).reset_index(drop=True)
+        # result_df = result_df.append(rows_list, ignore_index=True)
         return result_df
 
     result_df = pd.DataFrame(columns=['model', 'human', 'dataset', 'metric',
@@ -1066,7 +1077,9 @@ def format_benchmark_df(df, decision_makers, metric_names,
             analysis, metric_name = METRICS[colname]
             scalar = dfh.loc[dfh["metric"] == colname]["value"].values[0]
             human_dict[colname] = scalar
-        df = df.append(human_dict, ignore_index=True)
+        # print(human_dict) : {'model': 'humans', 'accuracy difference': 0.020350694444444442, 'observed consistency': 0.8386111111111111, 'error consistency': 0.3184364338405932}
+        df.loc[len(df)] = human_dict
+        # df = df.append(human_dict, ignore_index=True)
 
     # replace model name with the model's plotting name
     df["plotting_name"] = df["model"].apply(

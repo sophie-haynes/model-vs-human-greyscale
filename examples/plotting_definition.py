@@ -27,18 +27,52 @@ def plotting_definition_template(df):
 
     decision_makers = []
 
-    decision_makers.append(DecisionMaker(name_pattern="resnet50",
-                           color=rgb(65, 90, 140), marker="o", df=df,
-                           plotting_name="ResNet-50"))
-    decision_makers.append(DecisionMaker(name_pattern="bagnet33",
-                           color=rgb(110, 110, 110), marker="o", df=df,
-                           plotting_name="BagNet-33"))
-    decision_makers.append(DecisionMaker(name_pattern="simclr_resnet50x1",
-                           color=rgb(210, 150, 0), marker="o", df=df,
-                           plotting_name="SimCLR-x1"))
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50",
+    #                        color=rgb(65, 90, 140), marker="o", df=df,
+    #                        plotting_name="ResNet-50"))
+    # decision_makers.append(DecisionMaker(name_pattern="bagnet33",
+    #                        color=rgb(110, 110, 110), marker="o", df=df,
+    #                        plotting_name="BagNet-33"))
+    # decision_makers.append(DecisionMaker(name_pattern="simclr_resnet50x1",
+    #                        color=rgb(210, 150, 0), marker="o", df=df,
+    #                        plotting_name="SimCLR-x1"))
     decision_makers.append(DecisionMaker(name_pattern="subject-*",
                            color=rgb(165, 30, 55), marker="D", df=df,
                            plotting_name="humans"))
+    
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base89",
+                           color=rgb(65, 90, 140), marker="X", df=df,
+                           plotting_name="ResNet-50_Base89"))
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
+    #                        color=rgb(50, 100, 220), marker="X", df=df,
+    #                        plotting_name="ResNet-50_Base65"))
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
+    #                        color=rgb(100, 140, 250), marker="X", df=df,
+    #                        plotting_name="ResNet-50_Base61"))
+    
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
+    #                        color=rgb(65, 140, 94), marker="*", df=df,
+    #                        plotting_name="ResNet-50_Grey89"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey65",
+                           color=rgb(53, 212, 114), marker="*", df=df,
+                           plotting_name="ResNet-50_Grey65"))
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
+    #                        color=rgb(124, 247, 171), marker="*", df=df,
+    #                        plotting_name="ResNet-50_Grey61"))
+    
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
+    #                        color=rgb(140, 133, 65), marker="P", df=df,
+    #                        plotting_name="ResNet-50_Single89"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single65",
+                           color=rgb(212, 195, 48), marker="P", df=df,
+                           plotting_name="ResNet-50_Single65"))
+    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
+    #                        color=rgb(250, 236, 111), marker="P", df=df,
+    #                        plotting_name="ResNet-50_Single61"))
+    # decision_makers.append(DecisionMaker(name_pattern="simclr_resnet50x1",
+    #                        color=rgb(210, 150, 0), marker="o", df=df,
+    #                        plotting_name="SimCLR-x1"))
+  
     return decision_makers
 
 
@@ -48,110 +82,143 @@ def get_comparison_decision_makers(df, include_humans=True,
 
     d = []
 
-    # 1. supervised models
-    for model in c.TORCHVISION_MODELS:
-        d.append(DecisionMaker(name_pattern=model,
-                               color=rgb(230, 230, 230), df=df,
-                               plotting_name=model))
+    # # 1. supervised models
+    # for model in c.TORCHVISION_MODELS:
+    #     d.append(DecisionMaker(name_pattern=model,
+    #                            color=rgb(230, 230, 230), df=df,
+    #                            plotting_name=model))
 
-    # 2. self-supervised models
-    for model in c.PYCONTRAST_MODELS:
-        d.append(DecisionMaker(name_pattern=model,
-                               color=orange2, marker="o", df=df,
-                               plotting_name=model+": ResNet-50"))
-    d.append(DecisionMaker(name_pattern="simclr_resnet50x1",
-                           color=orange2, marker="o", df=df,
-                           plotting_name="SimCLR: ResNet-50x1"))
-    d.append(DecisionMaker(name_pattern="simclr_resnet50x2",
-                           color=orange2, marker="o", df=df,
-                           plotting_name="SimCLR: ResNet-50x2"))
-    d.append(DecisionMaker(name_pattern="simclr_resnet50x4",
-                           color=orange2, marker="o", df=df,
-                           plotting_name="SimCLR: ResNet-50x4"))
+    # # 2. self-supervised models
+    # for model in c.PYCONTRAST_MODELS:
+    #     d.append(DecisionMaker(name_pattern=model,
+    #                            color=orange2, marker="o", df=df,
+    #                            plotting_name=model+": ResNet-50"))
+    # d.append(DecisionMaker(name_pattern="simclr_resnet50x1",
+    #                        color=orange2, marker="o", df=df,
+    #                        plotting_name="SimCLR: ResNet-50x1"))
+    # d.append(DecisionMaker(name_pattern="simclr_resnet50x2",
+    #                        color=orange2, marker="o", df=df,
+    #                        plotting_name="SimCLR: ResNet-50x2"))
+    # d.append(DecisionMaker(name_pattern="simclr_resnet50x4",
+    #                        color=orange2, marker="o", df=df,
+    #                        plotting_name="SimCLR: ResNet-50x4"))
 
 
-    # 3. adversarially robust models
-    d += [DecisionMaker(name_pattern="resnet50_l2_eps0",
-                        color=rgb(196, 205, 229), marker="o", df=df,
-                        plotting_name="ResNet-50 L2 eps 0.0"),
-          DecisionMaker(name_pattern="resnet50_l2_eps0_5",
-                        color=rgb(176, 190, 220), marker="o", df=df,
-                        plotting_name="ResNet-50 L2 eps 0.5"),
-          DecisionMaker(name_pattern="resnet50_l2_eps1",
-                        color=rgb(134, 159, 203), marker="o", df=df,
-                        plotting_name="ResNet-50 L2 eps 1.0"),
-          DecisionMaker(name_pattern="resnet50_l2_eps3",
-                        color=rgb(86, 130, 186), marker="o", df=df,
-                        plotting_name="ResNet-50 L2 eps 3.0"),
-          DecisionMaker(name_pattern="resnet50_l2_eps5",
-                        color=blue2, marker="o", df=df,
-                        plotting_name="ResNet-50 L2 eps 5.0")]
+    # # 3. adversarially robust models
+    # d += [DecisionMaker(name_pattern="resnet50_l2_eps0",
+    #                     color=rgb(196, 205, 229), marker="o", df=df,
+    #                     plotting_name="ResNet-50 L2 eps 0.0"),
+    #       DecisionMaker(name_pattern="resnet50_l2_eps0_5",
+    #                     color=rgb(176, 190, 220), marker="o", df=df,
+    #                     plotting_name="ResNet-50 L2 eps 0.5"),
+    #       DecisionMaker(name_pattern="resnet50_l2_eps1",
+    #                     color=rgb(134, 159, 203), marker="o", df=df,
+    #                     plotting_name="ResNet-50 L2 eps 1.0"),
+    #       DecisionMaker(name_pattern="resnet50_l2_eps3",
+    #                     color=rgb(86, 130, 186), marker="o", df=df,
+    #                     plotting_name="ResNet-50 L2 eps 3.0"),
+    #       DecisionMaker(name_pattern="resnet50_l2_eps5",
+    #                     color=blue2, marker="o", df=df,
+    #                     plotting_name="ResNet-50 L2 eps 5.0")]
 
-    # 4. vision transformers without large-scale pretraining
-    d.append(DecisionMaker(name_pattern="vit_small_patch16_224",
-                           color=rgb(144, 159, 110), marker="v", df=df,
-                           plotting_name="ViT-S"))
-    d.append(DecisionMaker(name_pattern="vit_base_patch16_224",
-                           color=rgb(144, 159, 110), marker="v", df=df,
-                           plotting_name="ViT-B"))
-    d.append(DecisionMaker(name_pattern="vit_large_patch16_224",
-                           color=rgb(144, 159, 110), marker="v", df=df,
-                           plotting_name="ViT-L"))
+    # # 4. vision transformers without large-scale pretraining
+    # d.append(DecisionMaker(name_pattern="vit_small_patch16_224",
+    #                        color=rgb(144, 159, 110), marker="v", df=df,
+    #                        plotting_name="ViT-S"))
+    # d.append(DecisionMaker(name_pattern="vit_base_patch16_224",
+    #                        color=rgb(144, 159, 110), marker="v", df=df,
+    #                        plotting_name="ViT-B"))
+    # d.append(DecisionMaker(name_pattern="vit_large_patch16_224",
+    #                        color=rgb(144, 159, 110), marker="v", df=df,
+    #                        plotting_name="ViT-L"))
 
-    if not humans_last:
-        if include_humans:
-            d.append(DecisionMaker(name_pattern="subject-*",
+    # if not humans_last:
+    #     if include_humans:
+    #         d.append(DecisionMaker(name_pattern="subject-*",
+    #                                color=red, marker="D", df=df,
+    #                                plotting_name="humans"))
+    #     d.append(DecisionMaker(name_pattern="clip",
+    #                            color=brown1, marker="v", df=df,
+    #                            plotting_name="CLIP: ViT-B (400M)"))
+ 
+    # d.append(DecisionMaker(name_pattern="ResNeXt101_32x16d_swsl",
+    #                        color=purple1, marker="o", df=df,
+    #                        plotting_name="SWSL: ResNeXt-101 (940M)"))
+    # d.append(DecisionMaker(name_pattern="resnet50_swsl",
+    #                        color=purple1, marker="o", df=df,
+    #                        plotting_name="SWSL: ResNet-50 (940M)"))
+ 
+    # bitm_col = rgb(153, 142, 195) 
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_152x4",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-152x4 (14M)"))
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_152x2",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-152x2 (14M)"))
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_101x3",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-101x3 (14M)"))
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_101x1",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-101x1 (14M)"))
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_50x3",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-50x3 (14M)"))
+    # d.append(DecisionMaker(name_pattern="BiTM_resnetv2_50x1",
+    #                        color=bitm_col, marker="o", df=df,
+    #                        plotting_name="BiT-M: ResNet-50x1 (14M)"))
+
+    # d.append(DecisionMaker(name_pattern="transformer_L16_IN21K",
+    #                        color=green1, marker="v", df=df,
+    #                        plotting_name="ViT-L (14M)"))
+    # d.append(DecisionMaker(name_pattern="transformer_B16_IN21K",
+    #                        color=green1, marker="v", df=df,
+    #                        plotting_name="ViT-B (14M)"))
+
+    # d.append(DecisionMaker(name_pattern="efficientnet_l2_noisy_student_475",
+    #                        color=metallic, marker="o", df=df,
+    #                        plotting_name="Noisy Student: ENetL2 (300M)"))
+ 
+    # if humans_last:
+    #     d.append(DecisionMaker(name_pattern="clip",
+    #                            color=brown1, marker="v", df=df,
+    #                            plotting_name="CLIP: ViT-B (400M)"))
+    #     if include_humans:
+    #         d.append(DecisionMaker(name_pattern="subject-*",
+    #                                color=red, marker="D", df=df,
+    #                                plotting_name="humans"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_base89",
+                               color=rgb(100, 140, 250), marker="X", df=df,
+                               plotting_name="Base 89"))
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
+    #                            color=rgb(100, 140, 250), marker="X", df=df,
+    #                            plotting_name="Base 65"))
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
+    #                            color=rgb(100, 140, 250), marker="X", df=df,
+    #                            plotting_name="Base 61"))
+
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
+    #                            color=rgb(124, 247, 171), marker="*", df=df,
+    #                            plotting_name="Grey 89"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_grey65",
+                               color=rgb(124, 247, 171), marker="*", df=df,
+                               plotting_name="Grey 65"))
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
+    #                            color=rgb(124, 247, 171), marker="*", df=df,
+    #                            plotting_name="Grey 61"))
+
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
+    #                            color=rgb(250, 236, 111), marker="P", df=df,
+    #                            plotting_name="Single 89"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_single65",
+                               color=rgb(250, 236, 111), marker="P", df=df,
+                               plotting_name="Single 65"))
+    # d.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
+    #                            color=rgb(250, 236, 111), marker="P", df=df,
+    #                            plotting_name="Single 61"))
+    
+    d.append(DecisionMaker(name_pattern="subject-*",
                                    color=red, marker="D", df=df,
                                    plotting_name="humans"))
-        d.append(DecisionMaker(name_pattern="clip",
-                               color=brown1, marker="v", df=df,
-                               plotting_name="CLIP: ViT-B (400M)"))
- 
-    d.append(DecisionMaker(name_pattern="ResNeXt101_32x16d_swsl",
-                           color=purple1, marker="o", df=df,
-                           plotting_name="SWSL: ResNeXt-101 (940M)"))
-    d.append(DecisionMaker(name_pattern="resnet50_swsl",
-                           color=purple1, marker="o", df=df,
-                           plotting_name="SWSL: ResNet-50 (940M)"))
- 
-    bitm_col = rgb(153, 142, 195) 
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_152x4",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-152x4 (14M)"))
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_152x2",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-152x2 (14M)"))
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_101x3",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-101x3 (14M)"))
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_101x1",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-101x1 (14M)"))
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_50x3",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-50x3 (14M)"))
-    d.append(DecisionMaker(name_pattern="BiTM_resnetv2_50x1",
-                           color=bitm_col, marker="o", df=df,
-                           plotting_name="BiT-M: ResNet-50x1 (14M)"))
-
-    d.append(DecisionMaker(name_pattern="transformer_L16_IN21K",
-                           color=green1, marker="v", df=df,
-                           plotting_name="ViT-L (14M)"))
-    d.append(DecisionMaker(name_pattern="transformer_B16_IN21K",
-                           color=green1, marker="v", df=df,
-                           plotting_name="ViT-B (14M)"))
-
-    d.append(DecisionMaker(name_pattern="efficientnet_l2_noisy_student_475",
-                           color=metallic, marker="o", df=df,
-                           plotting_name="Noisy Student: ENetL2 (300M)"))
- 
-    if humans_last:
-        d.append(DecisionMaker(name_pattern="clip",
-                               color=brown1, marker="v", df=df,
-                               plotting_name="CLIP: ViT-B (400M)"))
-        if include_humans:
-            d.append(DecisionMaker(name_pattern="subject-*",
-                                   color=red, marker="D", df=df,
-                                   plotting_name="humans"))
-
+    
     return d
