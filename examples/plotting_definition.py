@@ -43,32 +43,32 @@ def plotting_definition_template(df):
     decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base89",
                            color=rgb(65, 90, 140), marker="X", df=df,
                            plotting_name="ResNet-50_Base89"))
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
-    #                        color=rgb(50, 100, 220), marker="X", df=df,
-    #                        plotting_name="ResNet-50_Base65"))
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
-    #                        color=rgb(100, 140, 250), marker="X", df=df,
-    #                        plotting_name="ResNet-50_Base61"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
+                           color=rgb(50, 100, 220), marker="X", df=df,
+                           plotting_name="ResNet-50_Base65"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
+                           color=rgb(100, 140, 250), marker="X", df=df,
+                           plotting_name="ResNet-50_Base61"))
     
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
-    #                        color=rgb(65, 140, 94), marker="*", df=df,
-    #                        plotting_name="ResNet-50_Grey89"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
+                           color=rgb(65, 140, 94), marker="*", df=df,
+                           plotting_name="ResNet-50_Grey89"))
     decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey65",
                            color=rgb(53, 212, 114), marker="*", df=df,
                            plotting_name="ResNet-50_Grey65"))
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
-    #                        color=rgb(124, 247, 171), marker="*", df=df,
-    #                        plotting_name="ResNet-50_Grey61"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
+                           color=rgb(124, 247, 171), marker="*", df=df,
+                           plotting_name="ResNet-50_Grey61"))
     
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
-    #                        color=rgb(140, 133, 65), marker="P", df=df,
-    #                        plotting_name="ResNet-50_Single89"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
+                           color=rgb(140, 133, 65), marker="P", df=df,
+                           plotting_name="ResNet-50_Single89"))
     decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single65",
                            color=rgb(212, 195, 48), marker="P", df=df,
                            plotting_name="ResNet-50_Single65"))
-    # decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
-    #                        color=rgb(250, 236, 111), marker="P", df=df,
-    #                        plotting_name="ResNet-50_Single61"))
+    decision_makers.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
+                           color=rgb(250, 236, 111), marker="P", df=df,
+                           plotting_name="ResNet-50_Single61"))
     # decision_makers.append(DecisionMaker(name_pattern="simclr_resnet50x1",
     #                        color=rgb(210, 150, 0), marker="o", df=df,
     #                        plotting_name="SimCLR-x1"))
@@ -190,32 +190,32 @@ def get_comparison_decision_makers(df, include_humans=True,
     d.append(DecisionMaker(name_pattern="resnet50_sophie_base89",
                                color=rgb(100, 140, 250), marker="X", df=df,
                                plotting_name="Base 89"))
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
-    #                            color=rgb(100, 140, 250), marker="X", df=df,
-    #                            plotting_name="Base 65"))
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
-    #                            color=rgb(100, 140, 250), marker="X", df=df,
-    #                            plotting_name="Base 61"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_base65",
+                               color=rgb(100, 140, 250), marker="X", df=df,
+                               plotting_name="Base 65"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_base61",
+                               color=rgb(100, 140, 250), marker="X", df=df,
+                               plotting_name="Base 61"))
 
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
-    #                            color=rgb(124, 247, 171), marker="*", df=df,
-    #                            plotting_name="Grey 89"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_grey89",
+                               color=rgb(124, 247, 171), marker="*", df=df,
+                               plotting_name="Grey 89"))
     d.append(DecisionMaker(name_pattern="resnet50_sophie_grey65",
                                color=rgb(124, 247, 171), marker="*", df=df,
                                plotting_name="Grey 65"))
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
-    #                            color=rgb(124, 247, 171), marker="*", df=df,
-    #                            plotting_name="Grey 61"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_grey61",
+                               color=rgb(124, 247, 171), marker="*", df=df,
+                               plotting_name="Grey 61"))
 
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
-    #                            color=rgb(250, 236, 111), marker="P", df=df,
-    #                            plotting_name="Single 89"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_single89",
+                               color=rgb(250, 236, 111), marker="P", df=df,
+                               plotting_name="Single 89"))
     d.append(DecisionMaker(name_pattern="resnet50_sophie_single65",
                                color=rgb(250, 236, 111), marker="P", df=df,
                                plotting_name="Single 65"))
-    # d.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
-    #                            color=rgb(250, 236, 111), marker="P", df=df,
-    #                            plotting_name="Single 61"))
+    d.append(DecisionMaker(name_pattern="resnet50_sophie_single61",
+                               color=rgb(250, 236, 111), marker="P", df=df,
+                               plotting_name="Single 61"))
     
     d.append(DecisionMaker(name_pattern="subject-*",
                                    color=red, marker="D", df=df,
